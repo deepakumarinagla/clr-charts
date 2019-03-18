@@ -1,16 +1,11 @@
-import { Component} from '@angular/core';
-import { template } from '@angular/core/src/render3';
 
-
-
+import { Component,} from '@angular/core';
 @Component({
   selector: 'app-root',
-
-  template:`
-<h1 my-highlighter > My Custom Directive </h1>
-<p my-highlighter > My first custom directives created where I was taking too long 
-time to understand it but it was really easy as compared and implemented </p>
-  `
-})
-export class AppComponent{}  
   
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
+})
+export class AppComponent  {
+
+}
