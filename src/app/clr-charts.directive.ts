@@ -137,7 +137,7 @@ export class ClrChartsDirective implements AfterViewInit, OnChanges{
       this.options.legend = legendOptions;
     }
 
-    // in order to allow for universal rendering, we import Codemirror runtime with `require` to prevent node errors
+    //...................................................//
     const Chart = require('chart.js');
 
     this.zone.runOutsideAngular(() => {
