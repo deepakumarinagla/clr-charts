@@ -1,5 +1,4 @@
 import { AfterViewInit,
-  ChangeDetectionStrategy,
   Directive,
   ElementRef,
   EventEmitter,
