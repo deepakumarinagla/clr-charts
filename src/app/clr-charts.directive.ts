@@ -6,7 +6,7 @@ import { AfterViewInit,
   NgZone,
   OnChanges,
   Output,
-  ViewChild, } from '@angular/core';
+  ViewChild,} from '@angular/core';
 import {ChartData,ChartLegendOptions,ChartOptions,ChartType,} from 'chart.js';
 declare var require: any;
 
@@ -74,106 +74,4 @@ export class ClrChartsDirective implements AfterViewInit, OnChanges{
       );
     }
 
-    // Pipe datasets to chart instance datasets enabling
-    // seamless transitions
-    const currentDatasets: any[] =
-      (this.chartInstance.config.data &&
-        this.chartInstance.config.data.datasets) ||
-      [];
-    const nextDatasets = data.datasets || [];
-
-    const currentDatasetsIndexed = {};
-    currentDatasets.forEach((x) => {
-      currentDatasetsIndexed[this.datasetKeyProvider(x)] = x;
-    });
-
-    // We can safely replace the dataset array, as long as we retain the _meta property
-    // on each dataset.
-    this.chartInstance.config.data.datasets = nextDatasets.map(next => {
-      const current = currentDatasetsIndexed[this.datasetKeyProvider(next)];
-
-      if (current && current.type === next.type) {
-        // Reassign all properties from next
-        for (const nextProp of Object.keys(next)) {
-          // Data array can't be reassigned here.
-          if (nextProp !== 'data') {
-            current[nextProp] = next[nextProp];
-          }
-        }
-        // Remove properties from current if they was removed in next
-        for (const currentProp of Object.keys(current)) {
-          // Be careful with _meta property
-          if (!next.hasOwnProperty(currentProp) && currentProp !== '_meta') {
-            delete current[currentProp];
-          }
-        }
-        // The data array must be edited in place. As chart.js adds listeners to it.
-        current.data.splice(next.data.length);
-        next.data.forEach((point, pid) => {
-          current.data[pid] = next.data[pid];
-        });
-
-        return current;
-      }
-      return next;
-    });
-
-    const { datasets, ...rest } = data;
-
-    this.chartInstance.config.data = {
-      ...this.chartInstance.config.data,
-      ...rest,
-    };
-
-    this.chartInstance.update();
-  }
-
-  renderChart() {
-    const node = this.ref.nativeElement;
-    const data = this.transformData();
-
-    if (typeof this.legend !== 'undefined') {
-      const legendOptions = { ...this.legend, ...this.options.legend };
-      this.options.legend = legendOptions;
-    }
-
-    //...................................................//
-    const Chart = require('chart.js');
-
-    this.zone.runOutsideAngular(() => {
-      this.chartInstance = new Chart(node, {
-        type: this.type,
-        data,
-        options: this.options,
-        plugins: this.plugins,
-      });
-    });
-  }
-
-  transformData() {
-    if (!this.data) {
-      return;
-    }
-    if (typeof this.data === 'function') {
-      const node = this.ref;
-      return this.data(node);
-    }
-    return this.data;
-  }
-
-  handleOnClick($event: Event) {
-    this.chartClick.emit({
-      elements: this.chartInstance.getElementsAtEvent($event),
-      element: this.chartInstance.getElementAtEvent($event),
-      dataset: this.chartInstance.getDatasetAtEvent($event),
-      $event,
-    });
-  }
-}
-
-export interface ChartClickEvent {
-  elements: any[];
-  element: any;
-  dataset: any[];
-  $event: Event;
-  }
+   
