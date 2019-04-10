@@ -46,6 +46,9 @@ export class ClrChartsDirective implements AfterViewInit, OnChanges{
   ngAfterViewInit() {
     this.renderChart();
   }
+  renderChart() {
+    throw new Error("Method not implemented.");
+  }
   ngOnChanges(changes: any) {
     if (changes.firstChange) {
       return;
@@ -56,22 +59,37 @@ export class ClrChartsDirective implements AfterViewInit, OnChanges{
       return;
     }
     this.updateChart();
+  }  updateChart() {
+    throw new Error("Method not implemented.");
   }
+}
+//need to write rest of the code in upcoming lines //
+//
 
-  updateChart() {
-    const data = this.transformData();
 
-    if (!this.chartInstance) {
-      return;
-    }
 
-    if (this.options) {
-      // in order to allow for universal rendering, we import chart.js runtime with `require` to prevent node errors
-      const Chart = require('chart.js');
-      this.chartInstance.options = (Chart as any).helpers.configMerge(
-        this.chartInstance.options,
-        this.options,
-      );
-    }
+
+
+
+
+
+
+//
+handleOnClick($event: Event) {
+    this.chartClick.emit({
+      elements: this.chartInstance.getElementsAtEvent($event),
+      element: this.chartInstance.getElementAtEvent($event),
+      dataset: this.chartInstance.getDatasetAtEvent($event),
+      $event,
+    });
+  }
+}
+
+export interface ChartClickEvent {
+  elements: any[];
+  element: any;
+  dataset: any[];
+  $event: Event;
+}
 
    
