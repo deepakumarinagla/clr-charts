@@ -75,21 +75,6 @@ export class ClrChartsDirective implements AfterViewInit, OnChanges{
 
 
 //
-handleOnClick($event: Event) {
-    this.chartClick.emit({
-      elements: this.chartInstance.getElementsAtEvent($event),
-      element: this.chartInstance.getElementAtEvent($event),
-      dataset: this.chartInstance.getDatasetAtEvent($event),
-      $event,
-    });
-  }
-}
 
-export interface ChartClickEvent {
-  elements: any[];
-  element: any;
-  dataset: any[];
-  $event: Event;
-}
 
    
