@@ -11,22 +11,17 @@ export class ChartComponent implements OnInit {
   @Input() data: any;
   @Input() options: any;
   LineChart: any;
-  BarChart: any;
+  
   
 
   ngOnInit() {
     // Line chart:
-    this.LineChart = new Chart('lineChart', {
-      type: this.type,
-      data: this.data,
-      options: this.options
-    });
-    // Bar chart:
-    this.BarChart = new Chart('barChart',{
-      type: this.type,
-      data: this.data,
-      options: this.options
-   });
+    let self = this;
+    setTimeout(function() { console.log(self.type);  new Chart(self.type, {
+      type: self.type,
+      data: self.data,
+      options: self.options
+    })}, 100);
     
   }
 }
