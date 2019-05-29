@@ -31,8 +31,10 @@
               "node_modules/@clr/icons/clr-icons.min.css",
               "node_modules/@clr/ui/clr-ui.min.css"
             ],
-            "scripts": ["node_modules/@webcomponents/custom-elements/custom-elements.min.js",
-              "node_modules/@clr/icons/clr-icons.min.js"]
+            "scripts": [
+              "node_modules/@webcomponents/custom-elements/custom-elements.min.js",
+              "node_modules/@clr/icons/clr-icons.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -130,6 +132,41 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "clr-charts": {
+      "root": "projects/clr-charts",
+      "sourceRoot": "projects/clr-charts/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/clr-charts/tsconfig.lib.json",
+            "project": "projects/clr-charts/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/clr-charts/src/test.ts",
+            "tsConfig": "projects/clr-charts/tsconfig.spec.json",
+            "karmaConfig": "projects/clr-charts/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/clr-charts/tsconfig.lib.json",
+              "projects/clr-charts/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]
